@@ -32,7 +32,7 @@ function App() {
         <td>Address</td>
       </thead>
       <tbody>
-        {students.map((e,i)=><Student id={e.id} name={e.name} age={e.age} address={e.address}/>)}
+        {students.map((e,i)=><Student key={i} id={e.id} name={e.name} age={e.age} address={e.address}/>)}
       </tbody>
     </table>
   );

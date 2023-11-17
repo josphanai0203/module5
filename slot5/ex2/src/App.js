@@ -9,6 +9,8 @@ function App() {
     <Routes>
       <Route path='/' element={<Library/>}/>
       <Route path='/create' element={<Create/>}/>
+      <Route path='/edit/:id' element={<Create/>}/>
+      
     </Routes>
   );
 }

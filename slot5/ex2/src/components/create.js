@@ -1,14 +1,29 @@
-import Axios from "axios";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 const Create = () => {
   const [book, setBook] = useState({ title: "", quantity: 0 });
+  const prams = useParams();
+  useEffect(() =>{
+    if(prams.id){
+      axios.get("http://localhost:8080/library/"+prams.id).then((response) => {
+        console.log(response);
+        setBook(response.data);
+      })
+    }
+  },[]); 
   const handleSubmit = () => {
     if (book.title !== "" && book.quantity !== 0) {
-      Axios.post("http://localhost:8080/library",book).then(() => {
+      if(book.id){
+        axios.patch("http://localhost:8080/library/"+book.id,book).then(() => {
+          alert("Success")
+        });
+      }else{
+        axios.post("http://localhost:8080/library",book).then(() => {
         alert("Success")
       });
+      }
     }
   };
   const handleChange = (prop, value) => {

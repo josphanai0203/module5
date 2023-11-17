@@ -1,18 +1,23 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Library = () => {
   const [library, setLibrary] = useState([]);
+  const router = useNavigate();
   useEffect(() => {
     axios.get("http://localhost:8080/library").then((res) =>
       setLibrary(res.data)
     );
-  }, [library]);
-  const handleEdit = (id) => {console.log(id)};
+  }, []);
+  const handleEdit = (id) => {
+      router("/edit/"+ id);
+  };
   const handleDelete = (id,index) => {
     axios.delete("http://localhost:8080/library/"+id).then((res) =>{
        library.splice(index, 1);
+       const row = document.getElementById(id);
+       row.parentNode.removeChild(row);
     })
   };
   return (
